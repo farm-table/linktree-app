@@ -157,7 +157,7 @@ export default function Linktree_Comp() {
               <Polygon width={"25"} />
             </Box>
           </LinkBtn>
-          <LinkBtn src="https://advocatesdao.com">AdvocatesDAO.com</LinkBtn>
+          <LinkBtn src="https://graphadvocates.com">AdvocatesDAO.com</LinkBtn>
           <LinkBtn src="https://indexerdao.com">IndexerDAO.com</LinkBtn>
           <LinkBtn src="#">Articles</LinkBtn>
         </Stack>
