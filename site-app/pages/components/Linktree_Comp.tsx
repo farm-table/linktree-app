@@ -77,89 +77,91 @@ export default function Linktree_Comp() {
   };
 
   return (
-    <Box
-      maxW={"400px"}
-      w={"full"}
-      bg={useColorModeValue("white", "gray.900")}
-      boxShadow={"2xl"}
-      rounded={"lg"}
-      p={6}
-      textAlign={"center"}
-    >
-      <Avatar
-        size={"xl"}
-        src={"/assets/BrainFried.jpg"}
-        mb={4}
-        pos={"relative"}
-      />
-      <Heading fontSize={"2xl"} fontFamily={"body"}>
-        Brain Fried
-      </Heading>
-      <HStack justify={"center"} p={"1"}>
-        <IconButton
-          as={Link}
-          aria-label="twitter link"
-          href={"https://twitter.com/BrainFriedEth"}
-          icon={<FaTwitter />}
-          bg={useColorModeValue("whiteAlpha.900", "gray.600")}
-          isExternal
-        />
-        <IconButton
-          as={Link}
-          aria-label="Youtube link"
-          href={"https://www.youtube.com/channel/UCxrVlwiCNG3fKEcrVo0Nyyw"}
-          icon={<FaYoutube />}
-          bg={useColorModeValue("whiteAlpha.900", "gray.600")}
-          isExternal
-        />
-      </HStack>
-      <Text
+    <VStack>
+      <Box
+        maxW={"400px"}
+        w={"full"}
+        bg={useColorModeValue("white", "gray.900")}
+        boxShadow={"2xl"}
+        rounded={"lg"}
+        p={6}
         textAlign={"center"}
-        color={useColorModeValue("gray.700", "gray.400")}
-        px={3}
-        fontSize={"md"}
       >
-        Developer, Collaborator, Dreamer
-      </Text>
+        <Avatar
+          size={"xl"}
+          src={"/assets/BrainFried.jpg"}
+          mb={4}
+          pos={"relative"}
+        />
+        <Heading fontSize={"2xl"} fontFamily={"body"}>
+          Brain Fried
+        </Heading>
+        <HStack justify={"center"} p={"1"}>
+          <IconButton
+            as={Link}
+            aria-label="twitter link"
+            href={"https://twitter.com/BrainFriedEth"}
+            icon={<FaTwitter />}
+            bg={useColorModeValue("whiteAlpha.900", "gray.600")}
+            isExternal
+          />
+          <IconButton
+            as={Link}
+            aria-label="Youtube link"
+            href={"https://www.youtube.com/channel/UCxrVlwiCNG3fKEcrVo0Nyyw"}
+            icon={<FaYoutube />}
+            bg={useColorModeValue("whiteAlpha.900", "gray.600")}
+            isExternal
+          />
+        </HStack>
+        <Text
+          textAlign={"center"}
+          color={useColorModeValue("gray.700", "gray.400")}
+          px={3}
+          fontSize={"md"}
+        >
+          Developer, Collaborator, Dreamer
+        </Text>
 
-      <Stack align={"center"} justify={"center"} direction={"row"} mt={6}>
-        <Badge
-          px={2}
-          py={1}
-          bg={useColorModeValue("gray.50", "gray.800")}
-          fontWeight={"400"}
-        >
-          #Engineering
-        </Badge>
-        <Badge
-          px={2}
-          py={1}
-          bg={useColorModeValue("gray.50", "gray.800")}
-          fontWeight={"400"}
-        >
-          #Music
-        </Badge>
-        <Badge
-          px={2}
-          py={1}
-          bg={useColorModeValue("gray.50", "gray.800")}
-          fontWeight={"400"}
-        >
-          #Ideas
-        </Badge>
-      </Stack>
+        <Stack align={"center"} justify={"center"} direction={"row"} mt={6}>
+          <Badge
+            px={2}
+            py={1}
+            bg={useColorModeValue("gray.50", "gray.800")}
+            fontWeight={"400"}
+          >
+            #Engineering
+          </Badge>
+          <Badge
+            px={2}
+            py={1}
+            bg={useColorModeValue("gray.50", "gray.800")}
+            fontWeight={"400"}
+          >
+            #Music
+          </Badge>
+          <Badge
+            px={2}
+            py={1}
+            bg={useColorModeValue("gray.50", "gray.800")}
+            fontWeight={"400"}
+          >
+            #Ideas
+          </Badge>
+        </Stack>
 
-      <Stack mt={8} direction={"column"} spacing={"4"}>
-        <LinkBtn>
-          Mint our BrainFriendship{" "}
-          <Box p={"2"}>
-            <Polygon width={"25"} />
-          </Box>
-        </LinkBtn>
-        <LinkBtn src="https://advocatesdao.com">AdvocatesDAO.com</LinkBtn>
-        <LinkBtn src="https://indexerdao.com">IndexerDAO.com</LinkBtn>
-        <LinkBtn src="#">Articles</LinkBtn>
-      </Stack>
-    </Box>
+        <Stack mt={8} direction={"column"} spacing={"4"}>
+          <LinkBtn>
+            Mint our BrainFriendship{" "}
+            <Box p={"2"}>
+              <Polygon width={"25"} />
+            </Box>
+          </LinkBtn>
+          <LinkBtn src="https://advocatesdao.com">AdvocatesDAO.com</LinkBtn>
+          <LinkBtn src="https://indexerdao.com">IndexerDAO.com</LinkBtn>
+          <LinkBtn src="#">Articles</LinkBtn>
+        </Stack>
+      </Box>
+    </VStack>
   );
 }
