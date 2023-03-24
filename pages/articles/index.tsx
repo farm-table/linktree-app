@@ -1,4 +1,4 @@
-import Articles_Layout from "../components/Articles_Layout";
+import Articles_Layout from "../../components/Articles_Layout";
 export default function articles() {
   return (
     <>

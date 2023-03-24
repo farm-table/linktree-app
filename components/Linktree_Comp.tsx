@@ -1,3 +1,5 @@
+import "viem/window";
+import BrainFriendNFT from "../artifacts/BrainFriendNFT.json";
 import {
   Avatar,
   Box,
@@ -30,12 +32,43 @@ import {
   ReactComponentElement,
   ReactElement,
   ReactNode,
+  useState,
 } from "react";
+import {
+  Account,
+  createPublicClient,
+  createWalletClient,
+  custom,
+  getAccount,
+  http,
+  PublicClient,
+  WalletClient,
+} from "viem";
+
+import { polygonMumbai } from "viem/chains";
+import { BRAINFRIENDNFT_CONTRACT_ADDRESS } from "@/utils/constants";
 
 export default function Linktree_Comp() {
+  var walletClient: WalletClient;
+  var publicClient: PublicClient;
+  var userAcct: Account;
+  const [account, setAccount] = useState<Account>();
+
+  //Create wallet client
+  if (typeof window !== "undefined" && typeof window.ethereum !== "undefined") {
+    walletClient = createWalletClient({
+      transport: custom(window.ethereum),
+    });
+  }
+
+  //Create public client
+  publicClient = createPublicClient({
+    chain: polygonMumbai,
+    transport: http(),
+  });
+
   const size = "96px";
   const color = "teal";
-
   const pulseRing = keyframes`
 	0% {
     transform: scale(0.33);
@@ -76,6 +109,42 @@ export default function Linktree_Comp() {
     );
   };
 
+  const mintFriendship = async () => {
+    try {
+      //Get a web3 account
+      console.log("logging in...");
+      const [address] = await walletClient.requestAddresses();
+      userAcct = getAccount(address);
+      setAccount(userAcct);
+      console.log("Logged in");
+
+      //Simulate contract to see if it executes without error
+      const { request } = await publicClient.simulateContract({
+        address: BRAINFRIENDNFT_CONTRACT_ADDRESS,
+        abi: BrainFriendNFT.abi,
+        functionName: "safeMint",
+        args: [account?.address],
+        account: account,
+      });
+      //Attempt to mint
+      console.log("Minting...");
+      await walletClient.writeContract(request);
+    } catch (e: any) {
+      console.log("Error: " + e.message);
+    }
+  };
+
+  async function showTotalSupply() {
+    const data = await publicClient.readContract({
+      address: BRAINFRIENDNFT_CONTRACT_ADDRESS,
+      abi: BrainFriendNFT.abi,
+      functionName: "totolSupply",
+      args: [],
+    });
+
+    console.log(data);
+  }
+
   return (
     <VStack>
       <Box
@@ -87,6 +156,7 @@ export default function Linktree_Comp() {
         p={6}
         textAlign={"center"}
       >
+        <Button onClick={showTotalSupply}>Print Total Supply</Button>
         <Avatar
           size={"xl"}
           src={"/assets/BrainFried.jpg"}
@@ -151,12 +221,23 @@ export default function Linktree_Comp() {
         </Stack>
 
         <Stack mt={8} direction={"column"} spacing={"4"}>
-          <LinkBtn>
+          <Button
+            fontSize={"lg"}
+            rounded={"full"}
+            bg={useColorModeValue("blue.600", "blue.700")}
+            color={"white"}
+            boxShadow={useColorModeValue(
+              "0px 1px 25px -5px rgb(66 153 240 / 28%), 0 10px 10px -5px rgb(66 153 240 / 23%)",
+              ""
+            )}
+            _hover={{ textDecoration: "none", bg: "blue.900" }}
+            onClick={mintFriendship}
+          >
             Mint our BrainFriendship{" "}
             <Box p={"2"}>
               <Polygon width={"25"} />
             </Box>
-          </LinkBtn>
+          </Button>
           <LinkBtn src="https://graphadvocates.com">AdvocatesDAO.com</LinkBtn>
           <LinkBtn src="https://indexerdao.com">IndexerDAO.com</LinkBtn>
           <LinkBtn src="#">Articles</LinkBtn>

@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { MoonIcon } from "@chakra-ui/icons";
-import Linktree_Comp from "./components/Linktree_Comp";
+import Linktree_Comp from "../components/Linktree_Comp";
 
 const inter = Inter({ subsets: ["latin"] });
 
