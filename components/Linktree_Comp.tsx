@@ -23,6 +23,14 @@ import {
   textDecoration,
   useColorMode,
   Icon,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
 import { Polygon } from "@thirdweb-dev/chain-icons";
@@ -36,6 +44,7 @@ import {
 } from "react";
 import {
   Account,
+  ContractFunctionExecutionError,
   createPublicClient,
   createWalletClient,
   custom,
@@ -53,6 +62,8 @@ export default function Linktree_Comp() {
   var publicClient: PublicClient;
   var userAcct: Account;
   const [account, setAccount] = useState<Account>();
+  const [isMinting, setIsMinting] = useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   //Create wallet client
   if (typeof window !== "undefined" && typeof window.ethereum !== "undefined") {
@@ -110,6 +121,9 @@ export default function Linktree_Comp() {
   };
 
   const mintFriendship = async () => {
+    //Disable button
+    setIsMinting(true);
+
     try {
       //Get a web3 account
       console.log("logging in...");
@@ -123,30 +137,48 @@ export default function Linktree_Comp() {
         address: BRAINFRIENDNFT_CONTRACT_ADDRESS,
         abi: BrainFriendNFT.abi,
         functionName: "safeMint",
-        args: [account?.address],
+        args: [userAcct?.address],
         account: account,
       });
       //Attempt to mint
-      console.log("Minting...");
+      console.log("Minting to: " + account?.address);
       await walletClient.writeContract(request);
     } catch (e: any) {
+      if (e.cause && e.cause.name == "ContractFunctionRevertedError") {
+        onOpen();
+      }
       console.log("Error: " + e.message);
     }
+
+    //Enable minting button
+    setIsMinting(false);
   };
 
-  async function showTotalSupply() {
-    const data = await publicClient.readContract({
-      address: BRAINFRIENDNFT_CONTRACT_ADDRESS,
-      abi: BrainFriendNFT.abi,
-      functionName: "totolSupply",
-      args: [],
-    });
+  // async function showTotalSupply() {
+  //   const data = await publicClient.readContract({
+  //     address: BRAINFRIENDNFT_CONTRACT_ADDRESS,
+  //     abi: BrainFriendNFT.abi,
+  //     functionName: "totalSupply",
+  //     args: [],
+  //   });
 
-    console.log(data);
-  }
+  //   console.log(data);
+  // }
 
   return (
     <VStack>
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Nice try pal! We are already friends.</ModalHeader>
+          <ModalCloseButton />
+          <ModalFooter>
+            <Button colorScheme="blue" mr={3} onClick={onClose}>
+              Close
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
       <Box
         maxW={"400px"}
         w={"full"}
@@ -156,7 +188,6 @@ export default function Linktree_Comp() {
         p={6}
         textAlign={"center"}
       >
-        <Button onClick={showTotalSupply}>Print Total Supply</Button>
         <Avatar
           size={"xl"}
           src={"/assets/BrainFried.jpg"}
@@ -222,6 +253,7 @@ export default function Linktree_Comp() {
 
         <Stack mt={8} direction={"column"} spacing={"4"}>
           <Button
+            isDisabled={isMinting}
             fontSize={"lg"}
             rounded={"full"}
             bg={useColorModeValue("blue.600", "blue.700")}
