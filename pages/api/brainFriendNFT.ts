@@ -1,11 +1,17 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
+type DataAttributes = {
+  display_type?: string;
+  trait_type: string;
+  value: string | number;
+};
 
 type Data = {
   name: string;
   description: string;
   image: string;
   external_url: string;
+  attributes: DataAttributes[];
 };
 
 export default function handler(
@@ -18,5 +24,16 @@ export default function handler(
       "Family comes and goes... A blockchain friendship, that's forever. You're now BrainFried's friend.",
     image: "https://brainfried.xyz/assets/brainFriendshipnft.png",
     external_url: "https://twitter.com/BrainFriedEth",
+    attributes: [
+      {
+        trait_type: "Token",
+        value: "Polygon",
+      },
+      {
+        display_type: "date",
+        trait_type: "Anniversery",
+        value: 1546360800,
+      },
+    ],
   });
 }
