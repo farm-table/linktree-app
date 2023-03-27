@@ -30,9 +30,8 @@ export default function handler(
         value: "Polygon",
       },
       {
-        display_type: "date",
-        trait_type: "Anniversery",
-        value: 1546360800,
+        trait_type: "Base",
+        value: "Starfish",
       },
     ],
   });

@@ -31,6 +31,8 @@ import {
   ModalBody,
   ModalCloseButton,
   useDisclosure,
+  cookieStorageManager,
+  Img,
 } from "@chakra-ui/react";
 import { FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
 import { Polygon } from "@thirdweb-dev/chain-icons";
@@ -66,6 +68,7 @@ export default function Linktree_Comp() {
   var userAcct: Account;
   const [account, setAccount] = useState<Account>();
   const [isMinting, setIsMinting] = useState(false);
+  const [isFriend, setIsFriend] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   //Create wallet client
@@ -145,7 +148,15 @@ export default function Linktree_Comp() {
       });
       //Attempt to mint
       console.log("Minting to: " + userAcct?.address);
-      await walletClient.writeContract(request);
+      walletClient
+        .writeContract(request)
+        .then((receipt) => {
+          setIsFriend(true);
+          console.log("Transaction Successful");
+        })
+        .catch((err) => {
+          console.log("Transaction Failed to mint");
+        });
     } catch (e: any) {
       if (e.cause && e.cause.name == "ContractFunctionRevertedError") {
         onOpen();
@@ -175,6 +186,9 @@ export default function Linktree_Comp() {
         <ModalContent>
           <ModalHeader>Nice try pal! We are already friends.</ModalHeader>
           <ModalCloseButton />
+          <ModalBody>
+            <Img src="/assets/brainfriendshipnft.png" />
+          </ModalBody>
           <ModalFooter>
             <Button colorScheme="blue" mr={3} onClick={onClose}>
               Close
