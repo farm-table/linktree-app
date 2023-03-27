@@ -5,6 +5,7 @@ type Data = {
   name: string;
   description: string;
   image: string;
+  external_url: string;
 };
 
 export default function handler(
@@ -15,6 +16,7 @@ export default function handler(
     name: "BrainFriendship",
     description:
       "Family comes and goes... A blockchain friendship, that's forever. You're now BrainFried's friend.",
-    image: "",
+    image: "https://brainfried.xyz/assets/brainFriendshipnft.png",
+    external_url: "https://twitter.com/BrainFriedEth",
   });
 }

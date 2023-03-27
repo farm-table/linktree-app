@@ -55,7 +55,10 @@ import {
 } from "viem";
 
 import { polygonMumbai } from "viem/chains";
-import { BRAINFRIENDNFT_CONTRACT_ADDRESS } from "@/utils/constants";
+import {
+  BRAINFRIENDNFT_CONTRACT_ADDRESS,
+  BRAINFRIENDNFT_CONTRACT_URI,
+} from "@/utils/constants";
 
 export default function Linktree_Comp() {
   var walletClient: WalletClient;
@@ -137,11 +140,11 @@ export default function Linktree_Comp() {
         address: BRAINFRIENDNFT_CONTRACT_ADDRESS,
         abi: BrainFriendNFT.abi,
         functionName: "safeMint",
-        args: [userAcct?.address],
-        account: account,
+        args: [userAcct?.address, BRAINFRIENDNFT_CONTRACT_URI],
+        account: userAcct,
       });
       //Attempt to mint
-      console.log("Minting to: " + account?.address);
+      console.log("Minting to: " + userAcct?.address);
       await walletClient.writeContract(request);
     } catch (e: any) {
       if (e.cause && e.cause.name == "ContractFunctionRevertedError") {
