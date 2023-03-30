@@ -1,5 +1,7 @@
 # Table of contents
 
+## Testing
+
 * [Indexing101](https://github.com/IndexerDAO/Indexing101/blob/main/README.md)
 * [About IndexerDAO](https://github.com/IndexerDAO/Indexing101/blob/main/about-indexerdao.md)
 
