@@ -152,7 +152,8 @@ export default function Linktree_Comp() {
         .writeContract(request)
         .then((receipt) => {
           setIsFriend(true);
-          console.log("Transaction Successful");
+          console.log("Transaction Successful: " + receipt);
+          onOpen();
         })
         .catch((err) => {
           console.log("Transaction Failed to mint");
@@ -184,11 +185,16 @@ export default function Linktree_Comp() {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Nice try pal! We are already friends.</ModalHeader>
+          {!isFriend && (
+            <ModalHeader>Nice try pal! We are already friends.</ModalHeader>
+          )}
+          {isFriend && <ModalHeader>Congrats! We are now friends.</ModalHeader>}
           <ModalCloseButton />
-          <ModalBody>
-            <Img src="/assets/brainfriendshipnft.png" />
-          </ModalBody>
+          {isFriend && (
+            <ModalBody>
+              <Img src="/assets/brainFriendshipnft.png" />
+            </ModalBody>
+          )}
           <ModalFooter>
             <Button colorScheme="blue" mr={3} onClick={onClose}>
               Close
