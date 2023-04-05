@@ -56,7 +56,7 @@ import {
   WalletClient,
 } from "viem";
 
-import { polygonMumbai } from "viem/chains";
+import { polygon, polygonMumbai } from "viem/chains";
 import {
   BRAINFRIENDNFT_CONTRACT_ADDRESS,
   BRAINFRIENDNFT_CONTRACT_URI,
@@ -80,7 +80,7 @@ export default function Linktree_Comp() {
 
   //Create public client
   publicClient = createPublicClient({
-    chain: polygonMumbai,
+    chain: polygon, //polygonMumbai,
     transport: http(),
   });
 
