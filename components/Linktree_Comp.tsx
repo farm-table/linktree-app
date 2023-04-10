@@ -102,6 +102,7 @@ export default function Linktree_Comp() {
   interface Props {
     src?: string;
     onClick?: () => void;
+    isExternal?: boolean;
   }
 
   const LinkBtn = (props: PropsWithChildren<Props>) => {
@@ -119,7 +120,7 @@ export default function Linktree_Comp() {
         _hover={{ textDecoration: "none", bg: "blue.900" }}
         href={props.src}
         onClick={props.onClick}
-        isExternal
+        {...props}
       >
         {props.children}
       </Button>
@@ -293,9 +294,15 @@ export default function Linktree_Comp() {
               <Polygon width={"25"} />
             </Box>
           </Button>
-          <LinkBtn src="https://graphadvocates.com">AdvocatesDAO.com</LinkBtn>
-          <LinkBtn src="https://indexerdao.com">IndexerDAO.com</LinkBtn>
-          <LinkBtn src="#">Articles</LinkBtn>
+          <LinkBtn isExternal={true} src="https://graphadvocates.com">
+            AdvocatesDAO.com
+          </LinkBtn>
+          <LinkBtn isExternal={true} src="https://indexerdao.com">
+            IndexerDAO.com
+          </LinkBtn>
+          <LinkBtn isExternal={false} src="/articles">
+            Articles
+          </LinkBtn>
         </Stack>
       </Box>
     </VStack>
