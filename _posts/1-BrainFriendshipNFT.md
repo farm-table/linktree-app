@@ -205,4 +205,4 @@ Additionally, Opensea offers the ability to freeze metadata through the smart co
 
 ---
 
-After you have created a button, connected that button to a function then created/deployed a smart contract and connected to the contract address and abi. Then running the app with `yarn dev`, you should be able to click your button and it will step through the process of creating your first smart contract. Congradulations!
+After you have created a button, connected that button to a function then created/deployed a smart contract and connected to the contract address and abi. Then running the app with `yarn dev`, you should be able to click your button and it will step through the process of creating your first smart contract. Congratulations!
