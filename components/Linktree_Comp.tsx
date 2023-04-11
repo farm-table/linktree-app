@@ -193,7 +193,12 @@ export default function Linktree_Comp() {
           <ModalCloseButton />
           {isFriend && (
             <ModalBody>
-              <Img src="/assets/brainFriendshipnft.png" />
+              <VStack>
+                <Img src="/assets/brainFriendshipnft.png" />
+                <Link href={"https://opensea.io/" + account?.address}>
+                  View on OpenSea
+                </Link>
+              </VStack>
             </ModalBody>
           )}
           <ModalFooter>
