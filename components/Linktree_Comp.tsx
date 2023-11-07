@@ -34,7 +34,7 @@ import {
   cookieStorageManager,
   Img,
 } from "@chakra-ui/react";
-import { FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
+import { FaInstagram, FaTwitter, FaYoutube, FaTiktok, FaLinkedin, FaFacebook } from "react-icons/fa";
 import { Polygon } from "@thirdweb-dev/chain-icons";
 
 import {
@@ -111,13 +111,13 @@ export default function Linktree_Comp() {
         as={Link}
         fontSize={"lg"}
         rounded={"full"}
-        bg={useColorModeValue("blue.600", "blue.700")}
+        bg={useColorModeValue("green.600", "green.700")}
         color={"white"}
         boxShadow={useColorModeValue(
           "0px 1px 25px -5px rgb(66 153 240 / 28%), 0 10px 10px -5px rgb(66 153 240 / 23%)",
           ""
         )}
-        _hover={{ textDecoration: "none", bg: "blue.900" }}
+        _hover={{ textDecoration: "none", bg: "green.900" }}
         href={props.src}
         onClick={props.onClick}
         {...props}
@@ -128,46 +128,46 @@ export default function Linktree_Comp() {
   };
 
   const mintFriendship = async () => {
-    //Disable button
-    setIsMinting(true);
+  //Disable button
+  setIsMinting(true);
 
-    try {
-      //Get a web3 account
-      console.log("logging in...");
-      const [address] = await walletClient.requestAddresses();
-      userAcct = getAccount(address);
-      setAccount(userAcct);
-      console.log("Logged in");
+  try {
+  //Get a web3 account
+  console.log("logging in...");
+  const [address] = await walletClient.requestAddresses();
+  userAcct = getAccount(address);
+  setAccount(userAcct);
+  console.log("Logged in");
 
-      //Simulate contract to see if it executes without error
-      const { request } = await publicClient.simulateContract({
-        address: BRAINFRIENDNFT_CONTRACT_ADDRESS,
-        abi: BrainFriendNFT.abi,
-        functionName: "safeMint",
-        args: [userAcct?.address, BRAINFRIENDNFT_CONTRACT_URI],
-        account: userAcct,
-      });
-      //Attempt to mint
-      console.log("Minting to: " + userAcct?.address);
-      walletClient
-        .writeContract(request)
-        .then((receipt) => {
-          setIsFriend(true);
-          console.log("Transaction Successful: " + receipt);
-          onOpen();
-        })
-        .catch((err) => {
-          console.log("Transaction Failed to mint");
-        });
-    } catch (e: any) {
-      if (e.cause && e.cause.name == "ContractFunctionRevertedError") {
-        onOpen();
-      }
+  //Simulate contract to see if it executes without error
+  const { request } = await publicClient.simulateContract({
+  address: BRAINFRIENDNFT_CONTRACT_ADDRESS,
+  abi: BrainFriendNFT.abi,
+  functionName: "safeMint",
+  args: [userAcct?.address, BRAINFRIENDNFT_CONTRACT_URI],
+  account: userAcct,
+  });
+  //Attempt to mint
+  console.log("Minting to: " + userAcct?.address);
+  walletClient
+  .writeContract(request)
+  .then((receipt) => {
+  setIsFriend(true);
+  console.log("Transaction Successful: " + receipt);
+  onOpen();
+  })
+  .catch((err) => {
+  console.log("Transaction Failed to mint");
+  });
+  } catch (e: any) {
+  if (e.cause && e.cause.name == "ContractFunctionRevertedError") {
+  onOpen();
+  }
       console.log("Error: " + e.message);
-    }
+  }
 
-    //Enable minting button
-    setIsMinting(false);
+  //Enable minting button
+  setIsMinting(false);
   };
 
   // async function showTotalSupply() {
@@ -202,7 +202,7 @@ export default function Linktree_Comp() {
             </ModalBody>
           )}
           <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
+            <Button colorScheme="green" mr={3} onClick={onClose}>
               Close
             </Button>
           </ModalFooter>
@@ -219,18 +219,18 @@ export default function Linktree_Comp() {
       >
         <Avatar
           size={"xl"}
-          src={"/assets/BrainFried.jpg"}
+          src={"/assets/avocado_logo_v100_transparent.png"}
           mb={4}
           pos={"relative"}
         />
         <Heading fontSize={"2xl"} fontFamily={"body"}>
-          Brain Fried
+          Farm & Table
         </Heading>
         <HStack justify={"center"} p={"1"}>
           <IconButton
             as={Link}
             aria-label="twitter link"
-            href={"https://twitter.com/BrainFriedEth"}
+            href={"https://twitter.com/farmandtableio"}
             icon={<FaTwitter />}
             bg={useColorModeValue("whiteAlpha.900", "gray.600")}
             isExternal
@@ -238,8 +238,40 @@ export default function Linktree_Comp() {
           <IconButton
             as={Link}
             aria-label="Youtube link"
-            href={"https://www.youtube.com/channel/UCxrVlwiCNG3fKEcrVo0Nyyw"}
+            href={"https://www.youtube.com/@farmandtableio"}
             icon={<FaYoutube />}
+            bg={useColorModeValue("whiteAlpha.900", "gray.600")}
+            isExternal
+          />
+           <IconButton
+            as={Link}
+            aria-label="Instagram link"
+            href={"https://www.instagram.com/farmandtableio"}
+            icon={<FaInstagram />}
+            bg={useColorModeValue("whiteAlpha.900", "gray.600")}
+            isExternal
+          />
+          <IconButton
+            as={Link}
+            aria-label="Tiktok link"
+            href={"https://www.tiktok.com/@farmandtableio"}
+            icon={<FaTiktok />}
+            bg={useColorModeValue("whiteAlpha.900", "gray.600")}
+            isExternal
+          />
+          <IconButton
+            as={Link}
+            aria-label="Linkedin link"
+            href={"https://www.linkedin.com/company/farmandtableio/about/"}
+            icon={<FaLinkedin />}
+            bg={useColorModeValue("whiteAlpha.900", "gray.600")}
+            isExternal
+          />
+          <IconButton
+            as={Link}
+            aria-label="Facebook link"
+            href={"https://www.facebook.com/farmandtableio"}
+            icon={<FaFacebook />}
             bg={useColorModeValue("whiteAlpha.900", "gray.600")}
             isExternal
           />
@@ -250,7 +282,7 @@ export default function Linktree_Comp() {
           px={3}
           fontSize={"md"}
         >
-          Developer, Collaborator, Dreamer
+          🥑 We’re passionate about connecting people for a sustainable future and creating a force for positive change in the world.
         </Text>
 
         <Stack align={"center"} justify={"center"} direction={"row"} mt={6}>
@@ -260,7 +292,7 @@ export default function Linktree_Comp() {
             bg={useColorModeValue("gray.50", "gray.800")}
             fontWeight={"400"}
           >
-            #Engineering
+            #Community
           </Badge>
           <Badge
             px={2}
@@ -268,7 +300,7 @@ export default function Linktree_Comp() {
             bg={useColorModeValue("gray.50", "gray.800")}
             fontWeight={"400"}
           >
-            #Music
+            #Sustainability
           </Badge>
           <Badge
             px={2}
@@ -276,37 +308,31 @@ export default function Linktree_Comp() {
             bg={useColorModeValue("gray.50", "gray.800")}
             fontWeight={"400"}
           >
-            #Ideas
+            #Farm & Table
           </Badge>
         </Stack>
 
         <Stack mt={8} direction={"column"} spacing={"4"}>
-          <Button
+          {/* <Button
             isDisabled={isMinting}
             fontSize={"lg"}
             rounded={"full"}
-            bg={useColorModeValue("blue.600", "blue.700")}
+            bg={useColorModeValue("green.600", "green.700")}
             color={"white"}
             boxShadow={useColorModeValue(
               "0px 1px 25px -5px rgb(66 153 240 / 28%), 0 10px 10px -5px rgb(66 153 240 / 23%)",
               ""
             )}
-            _hover={{ textDecoration: "none", bg: "blue.900" }}
+            _hover={{ textDecoration: "none", bg: "green.900" }}
             onClick={mintFriendship}
           >
             Mint our BrainFriendship{" "}
             <Box p={"2"}>
               <Polygon width={"25"} />
             </Box>
-          </Button>
-          <LinkBtn isExternal={true} src="https://graphadvocates.com">
-            AdvocatesDAO.com
-          </LinkBtn>
-          <LinkBtn isExternal={true} src="https://indexerdao.com">
-            IndexerDAO.com
-          </LinkBtn>
-          <LinkBtn isExternal={false} src="/articles">
-            Articles
+          </Button> */}
+          <LinkBtn isExternal={true} src="https://farmandtable.io">
+            Visit the Farm & Table Website
           </LinkBtn>
         </Stack>
       </Box>

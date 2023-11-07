@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>BrainFried</title>
+        <title>Farm & Table</title>
         <meta name="description" content="You shouldn't be here" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
